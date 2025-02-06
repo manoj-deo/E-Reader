@@ -23,6 +23,6 @@ Our E-Reader website is designed to offer a seamless and interactive digital rea
 
 # Members
 1. Chetan Shinde (Frontend)
-2. Manoj Deo (Backend)
-3. Priya Mittal (Frontend)
+2. Manoj Deo (Frontend)
+3. Priya Mittal (Backend)
 4. Riya Mittal (Backend)
