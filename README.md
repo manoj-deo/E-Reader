@@ -20,6 +20,15 @@ Our E-Reader website is designed to offer a seamless and interactive digital rea
  -Version Control: 
    1. Github repository
 
+# How to run the project?
+## Run the Go Backend
+Navigate to backend folder: cd ebook-library-new/backend
+Run the main.go file: go run main.go
+## Run the react frontend
+Open a new terminal and use the following commands:
+cd ebook-library-new
+npm install
+npm start
 
 # Members
 1. Chetan Shinde (Frontend)
