@@ -94,7 +94,7 @@
 
 - **GitHub Repository Link:** [https://github.com/YourRepo/E-Reader](https://github.com/manoj-deo/E-Reader)
 - **Demo Videos:**
-  - **Front-End Demo Video:** [Link to Front-End Demo Video](#)
+  - **Front-End Demo Video:** [Link to Front-End Demo Video](https://youtu.be/8LINe6fogEI?feature=shared)
   - **Back-End Demo Video:** [Link to Back-End Demo Video](#)
 
 ---
