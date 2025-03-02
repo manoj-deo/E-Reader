@@ -1,18 +1,61 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Container, TextField, Grid, Card, CardMedia, CardContent } from "@mui/material";
-
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Container,
+    TextField,
+    Grid,
+    Card,
+    CardMedia,
+    CardContent,
+    Button,
+} from "@mui/material";
+import AWS from "aws-sdk";
 
 const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState("");
+    const [pdfFile, setPdfFile] = useState(null);
+    const [uploadMessage, setUploadMessage] = useState("");
+
+    // AWS S3 Configuration
+    const s3 = new AWS.S3({
+        region: "us-east-2",
+        accessKeyId: "AKIAR7HWX3DHL4OA655N",
+        secretAccessKey: "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",
+    });
+
+    const bucketName = "books-uploaded";
+
+    const handleFileUpload = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setPdfFile(file);
+            const params = {
+                Bucket: bucketName,
+                Key: file.name,
+                Body: file,
+                ContentType: file.type,
+            };
+
+            try {
+                const data = await s3.upload(params).promise();
+                setUploadMessage(`File uploaded successfully: ${data.Location}`);
+            } catch (error) {
+                setUploadMessage("Error uploading file: " + error.message);
+            }
+        }
+    };
+
     const books = [
-        { id: 1, title: "A Court of Thorns and Roses", author: "Sarah J. Maas", image: "https://via.placeholder.com/150" },
-        { id: 2, title: "Everything I Know About Love: A Memoir", author: "Dolly Alderton", image: "https://via.placeholder.com/150" },
-        { id: 3, title: "Funny Story", author: "Emily Henry", image: "https://via.placeholder.com/150" },
-        { id: 4, title: "The Heaven & Earth Grocery Store: A Novel", author: "James McBride", image: "https://via.placeholder.com/150" },
-        { id: 5, title: "Crying in H Mart", author: "Michelle Zauner", image: "https://via.placeholder.com/150" },
-        { id: 6, title: "James: A Novel", author: "Percival Everett", image: "https://via.placeholder.com/150" },
-        { id: 7, title: "The Midnight Library: A GMA Book Club Pick: A Novel", author: "Matt Haig", image: "https://via.placeholder.com/150" },
-        { id: 8, title: "Dog Man: The Scarlet Shedder", author: "Dav Pilkey", image: "https://via.placeholder.com/150" },
+        { id: 1, title: "A Court of Thorns and Roses", author: "Sarah J. Maas", image: process.env.PUBLIC_URL + "/img/Book1.png" },
+        { id: 2, title: "Everything I Know About Love: A Memoir", author: "Dolly Alderton", image: process.env.PUBLIC_URL + "/img/Book 2.png" },
+        { id: 3, title: "Funny Story", author: "Emily Henry", image: process.env.PUBLIC_URL + "/img/Book 3.png" },
+        { id: 4, title: "The Heaven & Earth Grocery Store: A Novel", author: "James McBride", image: process.env.PUBLIC_URL + "/img/Book 4.png" },
+        { id: 5, title: "Crying in H Mart", author: "Michelle Zauner", image: process.env.PUBLIC_URL + "/img/Book 5.png" },
+        { id: 6, title: "James: A Novel", author: "Percival Everett", image: process.env.PUBLIC_URL + "/img/Book 6.png" },
+        { id: 7, title: "The Midnight Library: A GMA Book Club Pick: A Novel", author: "Matt Haig", image: process.env.PUBLIC_URL + "/img/Book 7.png" },
+        { id: 8, title: "Dog Man: The Scarlet Shedder", author: "Dav Pilkey", image: process.env.PUBLIC_URL + "/img/Book 8.png" },
     ];
 
     const filteredBooks = books.filter((book) =>
@@ -24,8 +67,20 @@ const Dashboard = () => {
             {/* Header */}
             <AppBar position="static">
                 <Toolbar>
-                   <Typography variant="h6">E-Reader</Typography>
-               </Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>E-Reader</Typography>
+                    <input
+                        type="file"
+                        accept="application/pdf"
+                        style={{ display: 'none' }}
+                        id="pdf-upload"
+                        onChange={handleFileUpload}
+                    />
+                    <label htmlFor="pdf-upload">
+                        <Button variant="contained" color="secondary" component="span">
+                            Upload PDF
+                        </Button>
+                    </label>
+                </Toolbar>
             </AppBar>
 
             {/* Main Content */}
@@ -56,6 +111,11 @@ const Dashboard = () => {
                         <Typography variant="h6" color="error">No books found.</Typography>
                     )}
                 </Grid>
+                {uploadMessage && (
+                    <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
+                        {uploadMessage}
+                    </Typography>
+                )}
             </Container>
 
             {/* Footer */}
