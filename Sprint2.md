@@ -611,7 +611,7 @@ storage and secure access.
 ## Submission Details
 
 - **GitHub Repository Link:** [https://github.com/manoj-deo/E-Reader](https://github.com/manoj-deo/E-Reader)
-- Note: Due to some issues, our commits are visible in the activity section of our Github Repository.
+- Note: Due to some code merging issues, our commits are visible in the activity section of our Github Repository. We have updated code on our local setup.
 - **Demo Videos:**
   - **Front-End Demo Video:** [Link to Front-End Demo Video](https://www.youtube.com/watch?v=N_LZFY0Xn78)
   - **Back-End Demo Video:** [Link to Back-End Demo Video](https://www.youtube.com/watch?v=wB91YWprIZQ)
