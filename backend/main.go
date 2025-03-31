@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+
 	"log"
 	"net/http"
 
@@ -119,23 +119,27 @@ func handleUpload(c *gin.Context, uploader FileUploader) {
 }
 
 // Show library with all uploaded PDFs
-
 func showLibrary(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Allow all origins
-
 	resp, err := s3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
 	})
 	if err != nil {
-		fmt.Printf("S3 ListObjectsV2 error: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load library"})
 		return
 	}
 
-	var fileLinks []string
+	var books []map[string]string
 	for _, item := range resp.Contents {
-		fileLinks = append(fileLinks, "https://"+bucketName+".s3.amazonaws.com/"+*item.Key)
+		pdfURL := "https://" + bucketName + ".s3.amazonaws.com/" + *item.Key
+		thumbnailURL := "https://" + bucketName + ".s3.amazonaws.com/thumbnails/" + *item.Key + ".jpg" // Assuming thumbnails are stored in `/thumbnails/`
+		log.Printf("PDF URL: %s", pdfURL)
+		log.Printf("Thumbnail URL: %s", thumbnailURL)
+		books = append(books, map[string]string{
+			"url":       pdfURL,
+			"thumbnail": thumbnailURL,
+			"name":      *item.Key,
+		})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"files": fileLinks})
+	c.JSON(http.StatusOK, gin.H{"books": books})
 }
