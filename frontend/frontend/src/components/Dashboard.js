@@ -86,7 +86,6 @@ const Dashboard = () => {
                     </label>
                 </Toolbar>
             </AppBar>
-
             {/* Main Content */}
             <Container>
                 <Typography variant="h4" gutterBottom>My Library</Typography>
