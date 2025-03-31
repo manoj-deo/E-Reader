@@ -17,9 +17,6 @@
 5. **User Notification**  
    *User receives email and message notification upon doing any activity on the application.*
 
-6. **Dashboard Page**  
-   *User will be able to see the books that he has in his bucket on this page.*
-
 ---
 
 ## Planned Issues for Sprint 1
@@ -35,10 +32,6 @@
  - **FE-3:** **Login Page Front-End**  
     *Status:* Not Completed  
     *Notes:* This page will display Login and Sign-up options to User.
-
- - **FE-4:** **Dashboard Page Front-End**  
-    *Status:* Completed  
-    *Notes:* This page will display the uploaded books of a User.
 
 ### Backend Issues
 
@@ -68,10 +61,6 @@
   - **FE-2:** About Page Front-End  
     *Status:* Completed  
     *Notes:* A Static About Page that shows description on the application and its working.
-
-  - **FE-4:** Dashboard Page Front-End  
-    *Status:* Completed  
-    *Notes:* This page will display the uploaded books of a User and its working.
 
 - **Backend:**
   - **BE-1:** Sign Up and Login  
@@ -103,10 +92,10 @@
 
 ## Submission Details
 
-- **GitHub Repository Link:** [https://github.com/manoj-deo/E-Reader](https://github.com/manoj-deo/E-Reader)
+- **GitHub Repository Link:** [https://github.com/YourRepo/E-Reader](https://github.com/manoj-deo/E-Reader)
 - **Demo Videos:**
-  - **Front-End Demo Video:** [Link to Front-End Demo Video](https://www.youtube.com/watch?v=8LINe6fogEI)
-  - **Back-End Demo Video:** [Link to Back-End Demo Video](https://www.youtube.com/watch?v=nycFLLUTSb8)
+  - **Front-End Demo Video:** [Link to Front-End Demo Video](#)
+  - **Back-End Demo Video:** [Link to Back-End Demo Video](#)
 
 ---
 

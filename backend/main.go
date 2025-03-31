@@ -1,3 +1,4 @@
+
 // package main
 
 import (
@@ -123,11 +124,14 @@ import (
 func showLibrary(c *gin.Context) {
 	c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Allow all origins
 
+
 	resp, err := s3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
 	})
 	if err != nil {
+
 		fmt.Printf("S3 ListObjectsV2 error: %v", err)
+
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load library"})
 		return
 	}
