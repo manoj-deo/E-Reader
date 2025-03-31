@@ -1,31 +1,61 @@
 import React, { useState, useEffect } from 'react';
 
-function Library() {
-    const [files, setFiles] = useState([]);
 
-   
-   useEffect(() => {
+
+function Library() {
+    const [books, setBooks] = useState([]);
+    const DEFAULT_COVER = "/default-thumbnail.jpeg";
+    useEffect(() => {
         fetch("http://localhost:5000/library")
             .then(response => response.json())
             .then(data => {
-                console.log("API response:", data); // Debugging step
-                setFiles(data.files || []); // Fallback to an empty array
+                console.log("API response:", data);
+
+                if (data.books) {
+                    setBooks(data.books);
+                }
             })
             .catch(error => console.error('Error fetching library:', error));
-    }, []); 
+    }, []);
 
-    
-    
     return (
-        <div>
+        <div style={{ padding: "20px" }}>
             <h1>My Library</h1>
-            <ul>
-                {files.map((file, index) => (
-                    <li key={index}>
-                        <a href={file} target="_blank" rel="noopener noreferrer">{file}</a>
-                    </li>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                {books.map((book, index) => (
+                    <div key={index} style={{ textAlign: "center", width: "160px", wordWrap: "break-word" }}>
+                        
+                        <img
+                            src={ DEFAULT_COVER} // Use thumbnail if available
+                            
+                            alt={book.name}
+                            style={{
+                                width: "150px",
+                                height: "200px",
+                                objectFit: "cover",
+                                borderRadius: "5px",
+                                boxShadow: "0 4px 6px rgba(0,0,0,0.1)"
+                            }}
+                        />
+                        <p style={{ marginTop: "8px", marginRight: "30px",  fontSize: "14px", fontWeight: "bold" }}>{book.name}</p>
+                        <button
+                            onClick={() => window.open(book.url, "_blank")}
+                            style={{
+                                marginTop: "5px",
+                                padding: "5px 10px",
+                                fontSize: "14px",
+                                backgroundColor: "#007bff",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "3px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            View
+                        </button>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

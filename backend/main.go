@@ -1,10 +1,10 @@
 // package main
 
-// import (
-// 	"context"
-// 	"fmt"
-// 	"log"
-// 	"net/http"
+import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
 
 // 	"github.com/aws/aws-sdk-go-v2/aws"
 // 	"github.com/aws/aws-sdk-go-v2/config"
@@ -118,24 +118,24 @@
 // 	c.JSON(http.StatusOK, gin.H{"pdf_url": fileURL, "pdf_name": file.Filename})
 // }
 
-// // Show library with all uploaded PDFs
+// Show library with all uploaded PDFs
 
-// func showLibrary(c *gin.Context) {
-// 	c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Allow all origins
+func showLibrary(c *gin.Context) {
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Allow all origins
 
-// 	resp, err := s3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
-// 		Bucket: aws.String(bucketName),
-// 	})
-// 	if err != nil {
-// 		fmt.Printf("S3 ListObjectsV2 error: %v", err)
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load library"})
-// 		return
-// 	}
+	resp, err := s3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+		Bucket: aws.String(bucketName),
+	})
+	if err != nil {
+		fmt.Printf("S3 ListObjectsV2 error: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load library"})
+		return
+	}
 
-// 	var fileLinks []string
-// 	for _, item := range resp.Contents {
-// 		fileLinks = append(fileLinks, "https://"+bucketName+".s3.amazonaws.com/"+*item.Key)
-// 	}
+	var fileLinks []string
+	for _, item := range resp.Contents {
+		fileLinks = append(fileLinks, "https://"+bucketName+".s3.amazonaws.com/"+*item.Key)
+	}
 
-// 	c.JSON(http.StatusOK, gin.H{"files": fileLinks})
-// }
+	c.JSON(http.StatusOK, gin.H{"files": fileLinks})
+}
