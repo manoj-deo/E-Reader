@@ -47,15 +47,19 @@ const Dashboard = () => {
         }
     };
 
+
+    const S3_BASE_URL = "https://book-thumbnail.s3.us-east-2.amazonaws.com/img/";
+
     const books = [
-        { id: 1, title: "A Court of Thorns and Roses", author: "Sarah J. Maas", image: process.env.PUBLIC_URL + "/img/Book1.png" },
-        { id: 2, title: "Everything I Know About Love: A Memoir", author: "Dolly Alderton", image: process.env.PUBLIC_URL + "/img/Book 2.png" },
-        { id: 3, title: "Funny Story", author: "Emily Henry", image: process.env.PUBLIC_URL + "/img/Book 3.png" },
-        { id: 4, title: "The Heaven & Earth Grocery Store: A Novel", author: "James McBride", image: process.env.PUBLIC_URL + "/img/Book 4.png" },
-        { id: 5, title: "Crying in H Mart", author: "Michelle Zauner", image: process.env.PUBLIC_URL + "/img/Book 5.png" },
-        { id: 6, title: "James: A Novel", author: "Percival Everett", image: process.env.PUBLIC_URL + "/img/Book 6.png" },
-        { id: 7, title: "The Midnight Library: A GMA Book Club Pick: A Novel", author: "Matt Haig", image: process.env.PUBLIC_URL + "/img/Book 7.png" },
-        { id: 8, title: "Dog Man: The Scarlet Shedder", author: "Dav Pilkey", image: process.env.PUBLIC_URL + "/img/Book 8.png" },
+        { id: 1, title: "A Court of Thorns and Roses", author: "Sarah J. Maas", image: `${S3_BASE_URL}Book1.png` },
+        { id: 2, title: "Everything I Know About Love: A Memoir", author: "Dolly Alderton", image: `${S3_BASE_URL}Book 2.png` },
+        { id: 3, title: "Funny Story", author: "Emily Henry", image: `${S3_BASE_URL}Book 3.png` },
+        { id: 4, title: "The Heaven & Earth Grocery Store: A Novel", author: "James McBride", image: `${S3_BASE_URL}Book 4.png` },
+        { id: 5, title: "Crying in H Mart", author: "Michelle Zauner", image: `${S3_BASE_URL}Book 5.png` },
+        { id: 6, title: "James: A Novel", author: "Percival Everett", image: `${S3_BASE_URL}Book 6.png` },
+        { id: 7, title: "The Midnight Library: A GMA Book Club Pick: A Novel", author: "Matt Haig", image: `${S3_BASE_URL}Book 7.png` },
+        { id: 8, title: "Dog Man: The Scarlet Shedder", author: "Dav Pilkey", image: `${S3_BASE_URL}Book 8.png` },
+
     ];
 
     const filteredBooks = books.filter((book) =>
