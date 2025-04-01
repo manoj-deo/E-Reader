@@ -607,8 +607,8 @@ storage and secure access.
 
 - **GitHub Repository Link:** [https://github.com/manoj-deo/E-Reader](https://github.com/manoj-deo/E-Reader)
 - **Demo Videos:**
-  - **Front-End Demo Video:** [Link to Front-End Demo Video](https://www.youtube.com/watch?v=N_LZFY0Xn78)
-  - **Back-End Demo Video:** [Link to Back-End Demo Video](https://www.youtube.com/watch?v=wB91YWprIZQ)
+  - **Front-End Demo Video:** [Link to Front-End Demo Video](https://youtu.be/FTZZ-VLcLSo)
+  - **Back-End Demo Video:** [Link to Back-End Demo Video](https://youtu.be/_M6IVUoruaI)
 
 ---
 
