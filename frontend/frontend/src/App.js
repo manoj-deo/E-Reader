@@ -6,6 +6,8 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
 import Dashboard from "./components/Dashboard";
+import SignupPage from "./components/SignupPage";
+import LoginPage from './components/LoginPage';
 
 const AppContent = () => {
     const location = useLocation(); // Correct placement of useLocation()
