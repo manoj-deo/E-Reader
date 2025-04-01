@@ -143,3 +143,105 @@ func showLibrary(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"files": fileLinks})
 }
+// Handle file upload
+func handleUpload(c *gin.Context) {
+	// Get the uploaded file from the form
+	file, err := c.FormFile("pdf")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to upload file"})
+		return
+	}
+
+	// Open the file
+	f, openErr := file.Open()
+	if openErr != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to open file"})
+		return
+	}
+	defer f.Close()
+
+	// Upload file to S3
+	_, uploadErr := uploader.Upload(context.TODO(), &s3.PutObjectInput{
+		Bucket:      aws.String(bucketName),
+		Key:         aws.String(file.Filename),
+		Body:        f,
+		ACL:         "public-read",
+		ContentType: aws.String("application/pdf"),
+	})
+	if uploadErr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload file"})
+		return
+	}
+
+	fileURL := "https://" + bucketName + ".s3.amazonaws.com/" + file.Filename
+	c.JSON(http.StatusOK, gin.H{"pdf_url": fileURL, "pdf_name": file.Filename})
+}
+
+func handleSignup(c *gin.Context) {
+	var user struct {
+		FullName string `json:"FullName"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	if err := c.BindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		return
+	}
+	users[user.Email] = user.Password
+	go sendLoginEmail(user.Email)
+	log.Printf("🟢 Registered user: %s -> %s", user.Email, user.Password)
+	// TODO: Save user to DB (mock or real)
+	c.JSON(http.StatusOK, gin.H{"message": "Signup successful"})
+}
+
+func handleLogin(c *gin.Context) {
+	var credentials struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	if err := c.BindJSON(&credentials); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	// ✅ Check if user exists in mock DB
+	storedPassword, exists := users[credentials.Email]
+	if !exists || storedPassword != credentials.Password {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
+		return
+	}
+
+	// ✅ Send login email (non-blocking)
+	go sendLoginEmail(credentials.Email)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Login successful",
+		"email":   credentials.Email,
+	})
+}
+
+func sendLoginEmail(toEmail string) error {
+	from := os.Getenv("EMAIL_FROM")
+	password := os.Getenv("EMAIL_PASS")
+
+	smtpHost := "smtp.gmail.com"
+	smtpPort := "587"
+
+	msg := []byte("Subject: E-Reader Login Alert\r\n" +
+		"To: " + toEmail + "\r\n" +
+		"From: E-Reader <" + from + ">\r\n" +
+		"MIME-version: 1.0;\r\n" +
+		"Content-Type: text/html; charset=\"UTF-8\";\r\n\r\n" +
+		"<html><body>" +
+		"<h3>Hello!</h3>" +
+		"<p>You just logged in to your <b>E-Reader</b> account.</p>" +
+		"<p>If this wasn’t you, please secure your account immediately.</p>" +
+		"<br><p>Happy reading! 📚</p>" +
+		"</body></html>")
+
+	auth := smtp.PlainAuth("", from, password, smtpHost)
+
+	return smtp.SendMail(smtpHost+":"+smtpPort, auth, from, []string{toEmail}, msg)
+}
