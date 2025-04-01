@@ -22,6 +22,9 @@ const Header = () => {
         <Button color="inherit" component={Link} to="/contact">
           Contact
         </Button>
+        <Button color="inherit" onClick={handleLogout}>
+          Logout
+        </Button>
       </Toolbar>
     </AppBar>
   );
