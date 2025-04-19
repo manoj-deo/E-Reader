@@ -21,15 +21,26 @@ Our E-Reader website is designed to offer a seamless and interactive digital rea
    1. Github repository
 
 # How to run the project?
-## Run the Go Backend
-Navigate to backend folder: cd ebook-library-new/backend
+## Run the AWS-Backend
+Open terminal
+``` cd aws-backend
+go run main.go
+```
 
-Run the main.go file: go run main.go
+## Run Backend
+Open new terminal and run the below commands
+```
+cd backend
+go run src/main.go
+```
+
 ## Run the react frontend
 Open a new terminal and use the following commands:
-1. cd ebook-library-new
+```
+1. cd frontend
 2. npm install
-3. npm start
+3. npm run dev
+```
 
 # Members
 1. Chetan Shinde (Frontend)
