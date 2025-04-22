@@ -618,8 +618,9 @@ Key infrastructure enhancements—like AWS integration for user and book managem
 ## Submission Details
 
 - **GitHub Repository Link:** [https://github.com/manoj-deo/E-Reader](https://github.com/manoj-deo/E-Reader)
-- **Demo Videos:**
-  - **Narrated video:** [Link to Narrated video](https://youtu.be/FTZZ-VLcLSo)
+- **Narrated Videos:**
+  - **Sprint 4 video:** [Link to Sprint 4 video](https://youtu.be/tMb_35irIug)
+  - **Pitch video:** [Link to Pitch video](https://youtu.be/s6WWffv59NE)
 
 ---
 
